@@ -119,4 +119,43 @@ public class AviaSoulsTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldSortByTimeIfOneTicket(){
+        AviaSouls aviaSouls = new AviaSouls();
+        aviaSouls.add(ticketKazan1);
+        aviaSouls.add(ticketKazan2);
+        aviaSouls.add(ticketKazan2);
+        aviaSouls.add(ticketKazan3);
+        aviaSouls.add(ticketKazan4);
+        aviaSouls.add(ticketKazan5);
+
+        Ticket ticket = new Ticket("Minsk", "Omsk", 8800, 7,18);
+        aviaSouls.add(ticket);
+
+        TicketTimeComparator ticketTimeComparator = new TicketTimeComparator();
+
+        Ticket[] actual = aviaSouls.searchAndSortBy("Minsk", "Omsk", ticketTimeComparator);
+        Ticket[] expected = {ticket};
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSortByIfNullTickets(){
+        AviaSouls aviaSouls = new AviaSouls();
+        aviaSouls.add(ticketKazan1);
+        aviaSouls.add(ticketKazan2);
+        aviaSouls.add(ticketKazan2);
+        aviaSouls.add(ticketKazan3);
+        aviaSouls.add(ticketKazan4);
+        aviaSouls.add(ticketKazan5);
+
+        TicketTimeComparator ticketTimeComparator = new TicketTimeComparator();
+
+        Ticket[] actual = aviaSouls.searchAndSortBy("Minsk", "Omsk", ticketTimeComparator);
+        Ticket[] expected = {};
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
